@@ -1,0 +1,56 @@
+:root{
+    --main-color: #3446eb;
+}
+
+.form-login {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-wrap: wrap;
+}
+
+.form-login fieldset {
+    width: 550px;
+}
+
+input[type="password"],
+input[type="text"] {
+    margin: 5px;
+    width: 400px;
+    height: 40px;
+    padding: 10px;
+    border: none;
+    background-color: var(--main-color);
+    border-radius: 30px;
+    color: #fff;
+    transition: .12s;
+}
+
+.form-login input[type="password"]:focus{
+ box-shadow: 0 0 0 0.25rem rgb(49 132 253 / 50%);
+}
+
+.form-login input[type="submit"] {
+    margin-top: 0pc;
+}
+
+.form-login td {
+    display: flex;
+    align-items: center;
+    margin-top: 1pc;
+}
+
+#see_pass {
+    position: relative;
+    color: #fff;
+    left: -35px;
+    width: 0
+}
+
+@media screen and (max-width: 767px) {
+    .form-login input[type="submit"] {
+        margin-bottom: 0;
+    }
+}
