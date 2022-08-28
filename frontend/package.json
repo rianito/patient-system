@@ -9,11 +9,16 @@
   },
   "dependencies": {
     "@types/react-datepicker": "4.4.2",
+    "axios": "^0.27.2",
+    "bootstrap": "^5.2.0",
+    "cdbreact": "^1.5.3",
     "npm": "^8.18.0",
     "react": "^18.0.0",
-    "react-alert": "^7.0.3",
     "react-bootstrap": "^2.5.0",
     "react-dom": "^18.0.0",
+    "react-hook-form": "^7.34.2",
+    "react-router": "^6.3.0",
+    "react-router-dom": "^6.3.0",
     "react-toastify": "^9.0.8"
   },
   "devDependencies": {

@@ -68,11 +68,6 @@ html {
     z-index: 1;
 }
 
-tbody {
-    display: flex;
-    flex-direction: column;
-}
-
 input[type="radio"] {
     -webkit-appearance: none;
     appearance: none;
