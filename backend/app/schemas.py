@@ -5,7 +5,7 @@ class SexEnum(str, Enum):
     Male = "M"
     Female = "F"
 
-class BloodTypeEnum(str, Enum):
+class BloodGroupEnum(str, Enum):
     OPositive = "O+"
     ONegative = "O-"
     APositive = "A+"
@@ -20,7 +20,7 @@ class BasePatient(BaseModel):
     birth_date: str
     height: float
     weight: float
-    blood_type: BloodTypeEnum
+    blood_group: BloodGroupEnum
     sex: SexEnum
 
 class CreatePatient(BasePatient):

@@ -35,12 +35,11 @@ def read_patients(patient_id: int, db: Session = Depends(get_db)):
 def create_patients(patient: schemas.CreatePatient, db: Session = Depends(get_db)):
     return crud.create_patient(db=db, patient=patient)
 
-'''
 @app.put("/patients/{patient_id}")
-def update_patients(patient_id: int, patient: Patient):
-    fake_patients_db[patient_id] = patient.dict()
+def update_patients(patient: schemas.Patient, db: Session = Depends(get_db)):
+    crud.update_patient(db, patient=patient)
     return patient
-'''
+
 @app.delete("/patients/{patient_id}")
 def delete_patients(patient_id: int, db: Session = Depends(get_db)):
     db_patient = crud.delete_patient(db, patient_id=patient_id)

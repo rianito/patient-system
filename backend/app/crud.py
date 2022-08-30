@@ -13,7 +13,7 @@ def create_patient(db: Session, patient: schemas.CreatePatient):
                                 birth_date=patient.birth_date, 
                                 height=patient.height,
                                 weight=patient.weight,
-                                blood_type=patient.blood_type,
+                                blood_group=patient.blood_group,
                                 sex=patient.sex
                                 )
     db.add(db_patient)
@@ -21,7 +21,10 @@ def create_patient(db: Session, patient: schemas.CreatePatient):
     db.refresh(db_patient)
     return db_patient
 
-def delete_patient(db: Session, patient_id: int):
-    result = db.delete(read_patient(db, patient_id=patient_id))
+def update_patient(db: Session, patient: schemas.Patient):
+    db.query(models.Patient).filter(models.Patient.id == patient.id).update(dict(patient))
     db.commit()
-    return result
+
+def delete_patient(db: Session, patient_id: int):
+    db.delete(read_patient(db, patient_id=patient_id))
+    db.commit()

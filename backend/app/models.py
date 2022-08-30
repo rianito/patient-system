@@ -10,5 +10,5 @@ class Patient(Base):
     birth_date = Column(String)
     height = Column(Float)
     weight = Column(Float)
-    blood_type = Column(String(2))
+    blood_group = Column(String(2))
     sex = Column(String(1))
