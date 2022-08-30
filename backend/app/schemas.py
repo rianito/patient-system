@@ -17,6 +17,7 @@ class BloodGroupEnum(str, Enum):
 
 class BasePatient(BaseModel):
     name: str
+    cpf: str
     birth_date: str
     height: float
     weight: float

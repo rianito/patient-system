@@ -6,7 +6,8 @@ class Patient(Base):
     __tablename__ = "patients"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
-    name = Column(String, unique=True)
+    name = Column(String)
+    cpf = Column(String(14), unique=True)
     birth_date = Column(String)
     height = Column(Float)
     weight = Column(Float)

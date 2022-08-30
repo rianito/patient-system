@@ -11,23 +11,34 @@ import { indigo } from "@mui/material/colors";
 
 export default function Listing(){
 
-    type Sale = {
-        id: number;
-        sellerName: string;
-        date: string;
-        visited: number;
-        deals: number;
-        amount: number;
+    // type Sale = {
+    //     id: number;
+    //     sellerName: string;
+    //     date: string;
+    //     visited: number;
+    //     deals: number;
+    //     amount: number;
+    // }
+
+    type Patient = {
+        id:number
+        name:string
+        cpf:string
+        birth_date:string
+        height:Float32Array
+        weight:Float32Array
+        blood_type:string
+        sex:string
     }
 
-const [sales, setSale] = useState<Sale[]>([]);
+const [patient, setPatient] = useState<Patient[]>([]);
 
 useEffect(() => {
-    axios.get('https://joaodsmovie.herokuapp.com/movies')
-    // .then(res => {setSale(res.data.content)})
-    .then(res => {console.log(res.data.content);
-    })
+    axios.get('http://127.0.0.1:8000/patients?skip=0&limit=10')
+    .then(res => {setPatient(res.data)})
 },[])
+
+
 
     return(
     <>
@@ -67,20 +78,31 @@ useEffect(() => {
 
                         </tr> */}
 
-                        {
-                        sales.map(sale => {
+                        {patient.map(patient => {
                         return(
-                        <tr key={sale.id}>
-                            <td className="show992">{sale.id}</td>
-                            <td className="show576">{new Date(sale.date).toLocaleDateString()}</td>
-                            <td>{sale.sellerName}</td>
-                            <td className="show992">{sale.visited}</td>
-                            <td className="show992">{sale.deals}</td>
-                            <td>R$ {sale.amount.toFixed(2)}</td>
+                        <tr key={patient.id}>
+                            <td className="show992">{patient.id}</td>
+                            <td className="date">{patient.birth_date}</td>
+                            <td>{patient.name}</td>
+                            <td className="show992">{patient.cpf}</td>
+                            <td className="show992">{patient.height}</td>
+                            <td>{patient.weight}</td>
+                            <td className="buttons">
+                                <Tooltip title="Editar">
+                                    <IconButton>
+                                        <EditIcon sx={{color: indigo[500]}}/>
+                                    </IconButton>
+                                </Tooltip>
+
+                                <Tooltip title="Deletar">
+                                    <IconButton>
+                                        <DeleteForeverRoundedIcon sx={{ color: red[500] }} />
+                                    </IconButton>
+                                </Tooltip>
+                            </td>
                         </tr>
-                        )
-                        })
-                        }
+                        ) }) }
+
 
                     </tbody>
 

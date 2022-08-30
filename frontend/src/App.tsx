@@ -11,9 +11,9 @@ return(
     <section>
       <div className="container">
         {/* <LoginForm/> */}
-        {/* <Listing/> */}
+        <Listing/>
         {/* <SideBar/> */}
-        <MainForm/>
+        {/* <MainForm/> */}
       </div> 
     </section>
   </main>

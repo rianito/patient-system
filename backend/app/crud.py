@@ -10,6 +10,7 @@ def read_patients(db: Session, skip: int = 0, limit: int = 10):
 
 def create_patient(db: Session, patient: schemas.CreatePatient):
     db_patient = models.Patient(name=patient.name, 
+                                cpf=patient.cpf,
                                 birth_date=patient.birth_date, 
                                 height=patient.height,
                                 weight=patient.weight,
