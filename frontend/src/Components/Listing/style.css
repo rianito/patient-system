@@ -9,6 +9,7 @@
     width: 100%;
     max-width: 900px;
     margin: 0 auto;
+    margin-top: 10px;
 }
 
 
@@ -34,22 +35,26 @@
 
 .data-table tbody tr {
     height: 74px;
-    border-top: 1px solid #5f6e82;
+    border: 1px solid #5f6e82;
 }
 
-.data-table tbody tr:hover>td {
+.data-table tbody tr:hover > td {
     background-color: #384459;
-}
+  }
 
 .data-table tbody tr:nth-child(odd) {
     background-color: #242c3b;
+}
+
+.data{
+    border: 1px solid #000;
 }
 
 .buttons{
     display: flex;
     height: 74px;
     align-content: center;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
 }
 
@@ -75,10 +80,26 @@
 }
 
 
-@media (min-width: 576px) {}
+@media (min-width: 576px) {
+    .data{
+        display: table-cell;
+    }
+
+    .card {
+        padding: 35px;
+    }
+
+    .data-table tbody tr {
+        height: 55px;
+    }
+
+    .data-table tbody {
+        font-size: 18px;
+    }
+}
 
 @media (min-width: 992px) {
-    .vendas {
+    .sla {
         display: table-cell;
     }
 }

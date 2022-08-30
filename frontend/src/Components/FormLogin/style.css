@@ -2,6 +2,31 @@
     --main-color: #3446eb;
 }
 
+.container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+label {
+    color: #fff;
+    font-size: 1.3rem;
+    font-family: 'Poppins', sans-serif;
+}
+
+legend {
+    color: #fff;
+    font-size: 1.5rem;
+}
+
+fieldset {
+    border-radius: 5px;
+    text-align: end;
+}
+
 .form-login {
     display: flex;
     flex-direction: row;
@@ -28,12 +53,31 @@ input[type="text"] {
     transition: .12s;
 }
 
-.form-login input[type="password"]:focus{
- box-shadow: 0 0 0 0.25rem rgb(49 132 253 / 50%);
+input[type="text"]:focus,
+input[type="password"]:focus{
+    box-shadow: 0 0 0 0.25rem rgb(49 132 253 / 50%);
 }
 
-.form-login input[type="submit"] {
-    margin-top: 0pc;
+input[type="submit"] {
+    padding: 10px;
+    margin-top: 15px;
+    border: none;
+    border: 2px solid #000;
+    border-radius: 30px;
+    background-color: var(--main-color);
+    width: 100%;
+    cursor: pointer;
+    transition: .25s;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+}
+
+input[type="submit"]:hover {
+    background-color: var(--bg-color);
+    color: #fff;
+    box-shadow: 0 0 0 0.25rem rgb(49 132 253 / 50%);
 }
 
 .form-login td {
@@ -54,3 +98,4 @@ input[type="text"] {
         margin-bottom: 0;
     }
 }
+
