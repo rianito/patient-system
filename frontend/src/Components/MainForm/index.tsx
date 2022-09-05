@@ -1,55 +1,81 @@
 import * as React from "react";
-import ReactSelect from 'react-select'
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './style.css'
 import '../../assets/styles/wave.css'
+import axios from "axios";
+import { FormValues, Patient } from "../interfaces";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 
-export default function MainForm(){
-
-const options = [
-{ value: 'A+', label: 'A+' },
-{ value: 'A-', label: 'A-' },
-{ value: 'B+', label: 'B+' },
-{ value: 'AB+',label: 'AB+'},
-{ value: 'AB-',label: 'AB-'},
-{ value: 'O+',label: 'O+'},
-{ value: 'O+',label: 'O+'}
-]
-
-interface FormValues {
-user:string;
-lastname:string;
-cpf:string;
-cep:string
-email:string;
-tel:string;
-date: string;
-gender:string;
-bloodtype:string;
+type Props = {
+    editMode : boolean
+    editPatient : Patient
+    setEditPatient: Function
+    setEditMode: Function
 }
+
+export default function MainForm({editMode,setEditMode, editPatient, setEditPatient}:Props){
+
 
 const { register, handleSubmit, setError, formState: { errors } } = useForm<FormValues>();
 
-    React.useEffect(() => {
-    setError("user", {
-    type: "manual",
-    message: "Dont Forget Your Username Should Be Cool!"
-    });
-    }, [setError])
+    function clearField(){
+        setEditPatient({
+            id:0,
+            name:"",
+            birth_date:"",
+            blood_group:"",
+            cpf:"",
+            sex:"",
+            weight:0,
+            height: 0
+        })
 
-    const onSubmit: SubmitHandler<FormValues> = data => {
-        console.log(data);
+        setEditMode(false)
+    }
 
-        if(data.user === "" || data.lastname === "" || data.cpf === "" || data.tel === "" || data.date === ''){
-        toast.error("Campos invalidos")
+    const onSubmit: SubmitHandler<FormValues> = (data) => {     
+            console.log("Data ",data);
+            
+            console.log("EditMode: "+editMode);
+            console.log("PatientId: "+editPatient.id);
+            
+        if(editMode){
+            axios.put(`http://localhost:8000/patients/${editPatient.id}`,{
+                "id":editPatient.id,
+                "name": data.user,
+                "cpf": data.cpf,
+                "birth_date": data.birth_date,
+                "height": data.height,
+                "weight": data.weight,
+                "blood_group": data.blood_type,
+                "sex": data.gender
+              }).then(res => {
+                toast.success("Alterado com sucesso!!")
+            })
+            .catch(error => {
+                toast.error("Erro ao Alterar CPF ja existente")
+                
+            })
         }else{
-        toast.success("Cadastrado com sucesso!!")
-
-        document.querySelector("form")?.reset()
+            axios.post(`http://localhost:8000/patients`,{
+                "name": data.user,
+                "cpf": data.cpf,
+                "birth_date": data.birth_date,
+                "height": data.height,
+                "weight": data.weight,
+                "blood_group": data.blood_type,
+                "sex": data.gender
+              }).then(res => {
+                toast.success("Cadastrado com sucesso!!")
+            })
+            .catch(error => {
+                console.log(error);
+            })
         }
-        };
+    };
 
         return (
         <>
@@ -57,7 +83,7 @@ const { register, handleSubmit, setError, formState: { errors } } = useForm<Form
                 href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
             </link>
 
-            <div className="container">
+            
                 <fieldset>
                     <legend>Cadastro de Paciente</legend>
                     <form onSubmit={handleSubmit(onSubmit)}>
@@ -65,97 +91,101 @@ const { register, handleSubmit, setError, formState: { errors } } = useForm<Form
                             <tr>
                                 <td>
                                     <label htmlFor="name">Nome</label>
-                                    <input type="text" id='name' {...register("user",{required: true})} />
+                                    <input defaultValue={editPatient?.name} type="text" id='name' {...register("user",{required: true})} />
                                     <p className="error-label">{errors.user?.type === 'required' && 'Escreva seu nome'}</p>
 
-                                </td>
-                                <td>
-                                    <label htmlFor="lastname">Sobrenome</label>
-                                    <input type="text" id='lastname' {...register("lastname",{required: true})} />
-                                    <p className="error-label">{errors.lastname?.type === 'required' && 'Escreva seu sobrenome'}</p>
                                 </td>
                             </tr>
 
                             <tr>
                                 <td>
                                     <label htmlFor="date">Data de Nascimento</label>
-                                    <input type="date" id='date' {...register("date",{required: true})} />
-                                    <p className="error-label">{errors.date?.type === 'required' && 'Escolha uma data'}</p>
+                                    <input defaultValue={editPatient?.birth_date} type="date" id='date' {...register("birth_date",{required: true})} />
+                                    <p className="error-label">{errors.birth_date?.type === 'required' && 'Escolha uma data'}</p>
                                 </td>
                                 <td>
                                     <label htmlFor="">Gender</label>
                                     <div className="gender-options">
                                         <label htmlFor="male">Masculino
-                                            <input {...register('gender', { required: true })} type="radio"
-                                                name="gender" value="Masculino" className="form-check-input"
-                                                id="male" />
+                                            {
+                                                editPatient.sex === "M" ? <input checked {...register('gender', { required: true })} type="radio"
+                                                name="gender" defaultValue="M" className="form-check-input"
+                                                id="male" />  : <input {...register('gender', { required: true })} type="radio"
+                                                name="gender" defaultValue="M" className="form-check-input"
+                                                id="male" /> 
+                                            }
+                                            
                                         </label>
                                         <br />
                                         <label htmlFor="female">Feminino
-                                            <input {...register('gender', { required: true })} type="radio"
-                                                name="gender" value="Feiminino" className="form-check-input"
-                                                id="female" />
+                                            {
+                                                editPatient.sex === "F" ? <input checked {...register('gender', { required: true })} type="radio"
+                                                name="gender" defaultValue="F" className="form-check-input"
+                                                id="female" />  : <input {...register('gender', { required: true })} type="radio"
+                                                name="gender" defaultValue="F" className="form-check-input"
+                                                id="female" /> 
+                                            }
+                                            
                                         </label>
                                         <div className="text-danger mt-3">
                                             <p className="error-label">{errors.gender?.type === 'required' && 'Selecione seu sexo'}</p>
                                         </div>
                                     </div>
                                 </td>
-                                <td>
-                                    <label htmlFor="">Blood type</label>
-                                    <ReactSelect options={options} />
-                                    <p className="error-label">{errors.bloodtype?.type === 'required' && 'Escolha seu tipo sanguineo'}</p>
-                                </td>
                             </tr>
                             <tr>
                                 <td>
                                     <label htmlFor="cpf">CPF </label>
-                                    <input type="text" placeholder='123.456.789-10' id='cpf' {...register("cpf",{required:true})} />
+                                    <input defaultValue={editPatient?.cpf} type="text" placeholder='123.456.789-10' id='cpf' {...register("cpf",{required:true})} />
                                     <p className="error-label">{errors.cpf?.type === 'required' && 'Escreva seu CPF'}</p>
                                 </td>
                                 <td>
-                                    <label htmlFor="tel">Telefone</label>
-                                    <input type="text" placeholder='(99) 99999-9999' id='tel' {...register("tel",{required:true})} />
-                                    <p className="error-label">{errors.tel?.type === 'required' && 'Escreva seu telefone'}</p>
+                                    <label htmlFor="">Blood type</label>
+                                    <br />
+                                    <select {...register("blood_type",{required:true})} defaultValue={editPatient?.blood_group}>
+                                        <option defaultValue="">Tipo Sanguineo</option>
+                                        <option defaultValue="A+">A+</option>
+                                        <option defaultValue="A-">A-</option>
+                                        <option defaultValue="B+">B+</option>
+                                        <option defaultValue="B-">B-</option>
+                                        <option defaultValue="AB+">AB+</option>
+                                        <option defaultValue="AB-">AB-</option>
+                                        <option defaultValue="O+">O+</option>
+                                        <option defaultValue="O-">O-</option>
+                                    </select>
+                                    <p className="error-label">{errors.blood_type?.type === 'required' && 'Escolha o tipo sanguineo'}</p>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <label htmlFor="cep">CEP</label>
-                                    <input type="text" id="cep" {...register("cep",{required:true})} />
-                                    <p className="error-label">{errors.cep?.type === 'required' && 'Escreva seu CEP'}</p>
+                                    <label htmlFor="weight">Peso</label>
+                                    <input defaultValue={editPatient?.weight === 0 ? undefined : editPatient?.weight} type="text" id="weight" placeholder="Peso" {...register("weight",{required:true})} />
+                                    <p className="error-label">{errors.weight?.type === 'required' && 'Escreva o Peso'}</p>
                                     
                                 </td>
                                 <td>
-                                    <label htmlFor="email">Email</label>
-                                    <input type="email" id="email" placeholder="seumelhoremail@gmail.com"
-                                        {...register("email",{required:true})} />
-                                        <p className="error-label">{errors.email?.type === 'required' && 'Escreva seu EMAIL'}</p>
+                                    <label htmlFor="height">Altura</label>
+                                    <input defaultValue={editPatient?.height === 0 ? undefined : editPatient?.height} type="text" id="height" placeholder="Altura" {...register("height",{required:true})} />
+                                        <p className="error-label">{errors.height?.type === 'required' && 'Escreva a Altura'}</p>
                                 </td>
                             </tr>
                         </table>
-                        <input type="submit" value="submit" />
+                        <input type="submit" defaultValue="submit"/>
                         <ToastContainer />
+                            
+                            {
+                                editMode && (
+                                    <Link to={'/listing'}>
+                                        <input type="button" value="Cancel" onClick={clearField}/>
+                                    </Link>
+                                )
+                            }
                     </form>
 
 
                 </fieldset>
-            </div>
-
-
-            <svg className="waves" xmlns="http://www.w3.org/2000/svg" xlinkHref="http://www.w3.org/1999/xlink"
-                viewBox="0 24 150 28" preserveAspectRatio="none" shapeRendering="auto">
-                <defs>
-                    <path id="gentle-wave"
-                        d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
-                </defs>
-                <g className="parallax">
-                    <use xlinkHref="#gentle-wave" x="48" y="0" fill="rgba(50, 168, 82,0.7)" />
-                    <use xlinkHref="#gentle-wave" x="48" y="3" fill="rgba(50, 168, 82,0.5)" />
-                    <use xlinkHref="#gentle-wave" x="48" y="5" fill="rgba(50, 168, 82,0.3)" />
-                    <use xlinkHref="#gentle-wave" x="48" y="7" fill="#32a852" />
-                </g>
-            </svg>
+            
+            
 
         </>
         )
