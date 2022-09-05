@@ -85,7 +85,11 @@ const { register, handleSubmit, setError, formState: { errors } } = useForm<Form
 
             
                 <fieldset>
-                    <legend>Cadastro de Paciente</legend>
+                    <legend>
+                        {
+                            !editMode ? "Cadastro de Paciente" : "Editar Paciente"
+                        }
+                    </legend>
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <table>
                             <tr>
