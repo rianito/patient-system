@@ -23,6 +23,7 @@ class BasePatient(BaseModel):
     weight: float
     blood_group: BloodGroupEnum
     sex: SexEnum
+    observation: str
 
 class CreatePatient(BasePatient):
     pass

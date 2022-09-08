@@ -13,3 +13,4 @@ class Patient(Base):
     weight = Column(Float)
     blood_group = Column(String(2))
     sex = Column(String(1))
+    observation = Column(String)

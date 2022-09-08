@@ -15,7 +15,8 @@ def create_patient(db: Session, patient: schemas.CreatePatient):
                                 height=patient.height,
                                 weight=patient.weight,
                                 blood_group=patient.blood_group,
-                                sex=patient.sex
+                                sex=patient.sex,
+                                observation=patient.observation
                                 )
     db.add(db_patient)
     db.commit()
