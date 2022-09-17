@@ -1,5 +1,5 @@
 export interface Patient {
-    id: any,
+    id: number,
     name: string,
     cpf: string,
     birth_date: string,
@@ -12,7 +12,7 @@ export interface Patient {
 
 
 export interface FormValues {
-    id: any,
+    id: number,
     user: string,
     lastname: string,
     cpf: string,

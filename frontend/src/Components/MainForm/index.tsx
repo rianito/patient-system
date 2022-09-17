@@ -77,6 +77,10 @@ export default function Formizho({ editMode, setEditMode, editPatient, setEditPa
     }
   }
 
+  function setCode(value: string): void {
+    throw new Error('Function not implemented.');
+  }
+
   return (
     <>
 
@@ -86,15 +90,17 @@ export default function Formizho({ editMode, setEditMode, editPatient, setEditPa
       <Container maxWidth={false} sx={{
         marginBottom: 5
       }}>
-        <Paper sx={{ width: 'auto', marginLeft: 30, }}>
+        <Paper sx={{ width: 'auto', marginTop: 5, boxShadow: 5 }}>
           <Box>
             <form onSubmit={handleSubmit(onSubmit)}>
-              <Typography variant='h4' align='center' >
+              <Typography variant='h4' align='center' sx={{ marginTop: '20px' }}>
                 {
                   !editMode ? "Cadastro de Paciente" : "Editar Paciente"
                 }
               </Typography>
-              <Divider />
+              <Divider sx={{
+                marginTop: 2,
+              }} />
               <Card sx={{ height: '100%' }}>
                 <CardContent>
                   <Grid container spacing={3} >
@@ -112,6 +118,13 @@ export default function Formizho({ editMode, setEditMode, editPatient, setEditPa
                         <TextField fullWidth
                           defaultValue={editPatient?.cpf}
                           {...register("cpf", { required: true })}
+                          onChange={(e) => {
+                            e.target.value = e.target.value.replace(/[^0-9]/g, '');
+                            e.target.value = e.target.value.replace(/(\d{3})(\d{3})(\d{3})(\d{1,2})/g, "$1.$2.$3-$4");
+                            if (e.target.value.length > 14) {
+                              e.target.value = e.target.value.substring(0, 14);
+                            }
+                          }}
                           label='CPF'
                           placeholder='000.000.000-00'
                           type="text"
@@ -125,7 +138,7 @@ export default function Formizho({ editMode, setEditMode, editPatient, setEditPa
                           {...register("birth_date", { required: true })}
                           defaultValue={editPatient?.birth_date}
                           type='date' />
-                        <label className='error-label'>{errors.birth_date?.type === 'required' && 'Escreva o nome do paciente'}</label>
+                        <label className='error-label'>{errors.birth_date?.type === 'required' && 'Escreva a data de nascimento do paciente'}</label>
                       </FormControl>
                       <FormControl fullWidth variant="outlined" sx={{ marginTop: 5, }}>
                         <div className="sex">
@@ -153,27 +166,69 @@ export default function Formizho({ editMode, setEditMode, editPatient, setEditPa
                       </FormControl>
                     </Grid>
 
+
                     <Grid item md={6} xs={12}>
                       <FormControl fullWidth variant="outlined" >
                         <TextField fullWidth
                           {...register("weight", { required: true })}
                           defaultValue={editPatient?.weight}
                           type='text'
-                          placeholder='Peso' />
-                        <label className='error-label'>{errors.weight?.type === 'required' && 'Escreva o nome do paciente'}</label>
+                          onChange={(e) => {
+                            e.target.value = e.target.value.replace(/[^0-9]/g, '');
+                          }}
+                          label='Peso' />
+                        <label className='error-label'>{errors.weight?.type === 'required' && 'Escreva o peso do paciente'}</label>
                       </FormControl>
                     </Grid>
+
+
                     <Grid item md={6} xs={12}>
                       <FormControl fullWidth variant="outlined" >
                         <TextField fullWidth
                           {...register("height", { required: true })}
                           defaultValue={editPatient?.height}
                           type='text'
-                          placeholder='Altura' />
-                        <label className='error-label'>{errors.height?.type === 'required' && 'Escreva o nome do paciente'}</label>
+                          onChange={(e) => {
+                            e.target.value = e.target.value.replace(/[^0-9]/g, '');
+                          }}
+                          label='Altura' />
+                        <label className='error-label'>{errors.height?.type === 'required' && 'Escreva a altura do paciente'}</label>
+                      </FormControl>
+
+                    </Grid>
+
+                    <Grid item md={6} xs={12}>
+                      <FormControl fullWidth variant="outlined" >
+                        <TextField fullWidth
+                          // {...register("email", { required: true })}
+                          // defaultValue={editPatient?.weight}
+                          type='email'
+                          label='Email' />
+                        <label className='error-label'>{errors.weight?.type === 'required' && 'Escreva o email do paciente'}</label>
                       </FormControl>
                     </Grid>
-                    <Grid item md={100}>
+
+                    <Grid item md={6} xs={12}>
+                      <FormControl fullWidth variant="outlined" >
+                        <TextField fullWidth
+                          // {...register("tel", { required: true })}
+                          // defaultValue={editPatient?.weight}
+                          type='tel'
+                          onChange={(e) => {
+                            e.target.value = e.target.value.replace(/[^0-9]/g, '');
+                            e.target.value = e.target.value.replace(/(\d{2})(\d{5})(\d{4})/g, "($1) $2-$3");
+                            if (e.target.value.length > 15) {
+                              e.target.value = e.target.value.substring(0, 15);
+                            }
+                          }}
+                          placeholder='(00) 00000-0000'
+                          label='Telefone' />
+                        <label className='error-label'>{errors.weight?.type === 'required' && 'Escreva o telefone do paciente'}</label>
+                      </FormControl>
+                    </Grid>
+
+
+                    <Grid item md={100} xs={12}>
                       <FormControl fullWidth variant="outlined" >
                         <label id="blood_type">Tipo Sanguineo</label>
                         <select {...register("blood_group", { required: true })} defaultValue={editPatient?.blood_group} style={{
@@ -194,10 +249,14 @@ export default function Formizho({ editMode, setEditMode, editPatient, setEditPa
                         <label className='error-label'>{errors.blood_group?.type === 'required' && 'Selecione o Tipo Sanguineo do paciente'}</label>
                       </FormControl>
                     </Grid>
-                    <Grid item md={100}>
+                    <Grid item md={100} xs={12}>
                       <InputLabel id="">Observação</InputLabel>
-                      <TextareaAutosize style={{ width: 823, height: 100, padding: 5, outline: 'none' }} {...register("observation", { required: true })} defaultValue={editPatient?.observation} />
-                      <label className='error-label'>{errors.observation?.type === 'required' && 'Escreva a obsevação do paciente'}</label>
+                      <TextareaAutosize
+                        style={{ width: '100%', height: 100, padding: 5, resize: 'vertical' }}
+                        {...register("observation", { required: true })}
+                        defaultValue={editPatient?.observation} />
+
+                      <label className='error-label'>{errors.observation?.type === 'required' && 'Escreva a obsevação do paciente' || ''}</label>
                     </Grid>
                   </Grid>
 
@@ -240,6 +299,7 @@ export default function Formizho({ editMode, setEditMode, editPatient, setEditPa
           </Box>
         </Paper>
       </Container>
+
     </>
   );
 };

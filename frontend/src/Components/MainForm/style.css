@@ -17,7 +17,6 @@
 
 .sex label {
   cursor: pointer;
-  background-color: var(--main-color);
   padding: 10px;
   align-items: center;
   display: flex;
@@ -55,10 +54,6 @@ input[type="radio"]::before {
 
 input[type="radio"]:checked::before {
   transform: scale(1);
-}
-
-select {
-  border-color: #c6c6c6;
 }
 
 select:hover {

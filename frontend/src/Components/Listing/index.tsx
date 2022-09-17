@@ -24,10 +24,17 @@ export default function Listing({ setEditPatient, setEditMode }: Props) {
             .then(res => { setPatients(res.data) })
     }, [])
 
-    function deletePatient(patientId: number) {
+    const getData = () => {
+        axios.get(`http://127.0.0.1:8000/patients`)
+            .then((getData) => {
+                setPatients(getData.data);
+            })
+    }
+
+    const deletePatient = (patientId: number) => {
         axios.delete(`http://127.0.0.1:8000/patients/${patientId}`)
             .then(res => {
-                setPatients(patients.filter((patient) => patient.id !== patientId));
+                getData()
                 toast.info("Deletado com sucesso");
             })
             .catch(res => {
@@ -43,7 +50,7 @@ export default function Listing({ setEditPatient, setEditMode }: Props) {
 
             <Box mt={2} sx={{
                 width: 'auto',
-                marginLeft: 20,
+                marginTop: 5,
                 padding: 0.9,
                 backgroundColor: '#e6e6e6',
                 borderRadius: 3
@@ -52,8 +59,10 @@ export default function Listing({ setEditPatient, setEditMode }: Props) {
 
                 <Container>
                     <TableContainer component={Paper}>
-                        <Table sx={{ minWidth: 700 }}>
-                            <TableHead>
+                        <Table sx={{ mWidth: 700 }}>
+                            <TableHead sx={{
+                                background: '#f9f9f9',
+                            }}>
                                 <TableRow>
                                     <TableCell align="center">Id</TableCell>
                                     <TableCell align="center">Nome</TableCell>
@@ -74,15 +83,19 @@ export default function Listing({ setEditPatient, setEditMode }: Props) {
                                         <TableRow>
                                             <TableCell align="center">{patient?.id}</TableCell>
                                             <TableCell align="center">{patient?.name}</TableCell>
-                                            <TableCell align="center">{(patient?.birth_date).split('-').reverse().join().replaceAll(',', '/')}</TableCell>
-                                            <TableCell align="center">{(patient?.cpf).replace(/(\d{3})?(\d{3})?(\d{3})?(\d{2})/, "$1.$2.$3-$4")}</TableCell>
-                                            <TableCell align="center">{patient?.weight}</TableCell>
+                                            <TableCell align="center">{(patient?.birth_date).split('-').reverse().join('/')}</TableCell>
+                                            <TableCell align="center">{(patient?.cpf)}</TableCell>
+                                            <TableCell align="center">{patient?.weight}Kg</TableCell>
                                             <TableCell align="center">{patient?.height}</TableCell>
-                                            <TableCell align="center">{patient?.sex}</TableCell>
+                                            <TableCell align="center">{patient?.sex === 'M' ? "Masculino" : "Feminino"}</TableCell>
                                             <TableCell align="center">{patient?.blood_group}</TableCell>
                                             <TableCell align="center">{patient?.observation}</TableCell>
-                                            <TableCell><UpdateBtn patient={patient} setEditPatient={setEditPatient} setEditMode={setEditMode} /></TableCell>
-                                            <TableCell><DeleteBtn patientId={patient.id} deletePatient={deletePatient} /></TableCell>
+                                            <TableCell>
+                                                <UpdateBtn patient={patient} setEditPatient={setEditPatient} setEditMode={setEditMode} />
+                                            </TableCell>
+                                            <TableCell>
+                                                <DeleteBtn patientId={patient.id} deletePatient={deletePatient} />
+                                            </TableCell>
                                         </TableRow>
                                     )
                                 })}

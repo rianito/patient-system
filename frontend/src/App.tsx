@@ -9,6 +9,7 @@ import { useState } from 'react';
 import { Box } from '@mui/material';
 import { Container } from '@mui/system';
 import PageNotFound from './Components/PageNotFound';
+import About from './Components/about';
 
 export default function App() {
   const [editMode, setEditMode] = useState(false)
@@ -29,7 +30,7 @@ export default function App() {
   return (
     <>
 
-      <ToastContainer />
+      <ToastContainer/>
       <Router>
         <SideBar />
         <Box>
@@ -37,6 +38,7 @@ export default function App() {
             <Routes>
               <Route path='/form' element={<MainForm setEditMode={setEditMode} setEditPatient={setEditPatient} editMode={editMode} editPatient={editPatient} />} />
               <Route path='/' element={<Listing setEditMode={setEditMode} setEditPatient={setEditPatient} />} />
+              <Route path='/about' element={<About />} />
               <Route path='*' element={<PageNotFound />} />
             </Routes>
           </Container>
