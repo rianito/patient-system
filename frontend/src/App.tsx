@@ -30,7 +30,7 @@ export default function App() {
   return (
     <>
 
-      <ToastContainer/>
+      <ToastContainer />
       <Router>
         <SideBar />
         <Box>

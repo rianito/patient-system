@@ -171,7 +171,7 @@ export default function Formizho({ editMode, setEditMode, editPatient, setEditPa
                       <FormControl fullWidth variant="outlined" >
                         <TextField fullWidth
                           {...register("weight", { required: true })}
-                          defaultValue={editPatient?.weight}
+                          defaultValue={editPatient?.weight === 0 ? "" : ""}
                           type='text'
                           onChange={(e) => {
                             e.target.value = e.target.value.replace(/[^0-9]/g, '');
@@ -181,12 +181,11 @@ export default function Formizho({ editMode, setEditMode, editPatient, setEditPa
                       </FormControl>
                     </Grid>
 
-
                     <Grid item md={6} xs={12}>
                       <FormControl fullWidth variant="outlined" >
                         <TextField fullWidth
                           {...register("height", { required: true })}
-                          defaultValue={editPatient?.height}
+                          defaultValue={editPatient?.height === 0 ? "" : ""}
                           type='text'
                           onChange={(e) => {
                             e.target.value = e.target.value.replace(/[^0-9]/g, '');
@@ -194,7 +193,6 @@ export default function Formizho({ editMode, setEditMode, editPatient, setEditPa
                           label='Altura' />
                         <label className='error-label'>{errors.height?.type === 'required' && 'Escreva a altura do paciente'}</label>
                       </FormControl>
-
                     </Grid>
 
                     <Grid item md={6} xs={12}>
