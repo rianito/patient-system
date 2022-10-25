@@ -7,7 +7,9 @@ export interface Patient {
     weight: number,
     blood_group: string,
     sex: string,
-    observation: string
+    observation: string,
+    tel: string,
+    email: string,
 }
 
 
@@ -22,4 +24,6 @@ export interface FormValues {
     weight: number,
     blood_group: string,
     observation: string
+    tel: string,
+    email: string,
 }

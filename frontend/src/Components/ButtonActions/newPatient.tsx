@@ -32,6 +32,7 @@ export default function NewPatient({ setEditMode, setEditPatient }: Props) {
           width: 200,
           height: 50,
           color: "#fff",
+          borderRadius: 3,
           backgroundColor: "#32a852",
           margin: 1,
           ":hover": {
@@ -39,7 +40,7 @@ export default function NewPatient({ setEditMode, setEditPatient }: Props) {
           },
         }}
       >
-        Cadastrar paciente
+        Cadastrar
       </Button>
     </Link>
   );

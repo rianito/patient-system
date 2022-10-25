@@ -50,7 +50,9 @@ export default function Formizho({ editMode, setEditMode, editPatient, setEditPa
         "weight": data.weight,
         "blood_group": data.blood_group,
         "sex": data.sex,
-        "observation": data.observation
+        "observation": data.observation,
+        "tel": data.tel,
+        "email": data.email
       }).then(res => {
         toast.success("Alterado com sucesso!!")
       })
@@ -67,7 +69,9 @@ export default function Formizho({ editMode, setEditMode, editPatient, setEditPa
         "weight": data.weight,
         "blood_group": data.blood_group,
         "sex": data.sex,
-        "observation": data.observation
+        "observation": data.observation,
+        "tel": data.tel,
+        "email": data.email
       }).then(res => {
         toast.success("Cadastrado com sucesso!!")
       })
@@ -171,7 +175,7 @@ export default function Formizho({ editMode, setEditMode, editPatient, setEditPa
                       <FormControl fullWidth variant="outlined" >
                         <TextField fullWidth
                           {...register("weight", { required: true })}
-                          defaultValue={editPatient?.weight === 0 ? "" : ""}
+                          defaultValue={editPatient?.weight}
                           type='text'
                           onChange={(e) => {
                             e.target.value = e.target.value.replace(/[^0-9]/g, '');
@@ -185,7 +189,7 @@ export default function Formizho({ editMode, setEditMode, editPatient, setEditPa
                       <FormControl fullWidth variant="outlined" >
                         <TextField fullWidth
                           {...register("height", { required: true })}
-                          defaultValue={editPatient?.height === 0 ? "" : ""}
+                          defaultValue={editPatient?.height}
                           type='text'
                           onChange={(e) => {
                             e.target.value = e.target.value.replace(/[^0-9]/g, '');
@@ -198,8 +202,8 @@ export default function Formizho({ editMode, setEditMode, editPatient, setEditPa
                     <Grid item md={6} xs={12}>
                       <FormControl fullWidth variant="outlined" >
                         <TextField fullWidth
-                          // {...register("email", { required: true })}
-                          // defaultValue={editPatient?.weight}
+                          {...register("email", { required: true })}
+                          defaultValue={editPatient?.email}
                           type='email'
                           label='Email' />
                         <label className='error-label'>{errors.weight?.type === 'required' && 'Escreva o email do paciente'}</label>
@@ -209,8 +213,8 @@ export default function Formizho({ editMode, setEditMode, editPatient, setEditPa
                     <Grid item md={6} xs={12}>
                       <FormControl fullWidth variant="outlined" >
                         <TextField fullWidth
-                          // {...register("tel", { required: true })}
-                          // defaultValue={editPatient?.weight}
+                          {...register("tel", { required: true })}
+                          defaultValue={editPatient?.weight}
                           type='tel'
                           onChange={(e) => {
                             e.target.value = e.target.value.replace(/[^0-9]/g, '');
@@ -221,7 +225,7 @@ export default function Formizho({ editMode, setEditMode, editPatient, setEditPa
                           }}
                           placeholder='(00) 00000-0000'
                           label='Telefone' />
-                        <label className='error-label'>{errors.weight?.type === 'required' && 'Escreva o telefone do paciente'}</label>
+                        <label className='error-label'>{errors.tel?.type === 'required' && 'Escreva o telefone do paciente'}</label>
                       </FormControl>
                     </Grid>
 

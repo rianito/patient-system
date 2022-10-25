@@ -48,18 +48,22 @@ export default function Listing({ setEditPatient, setEditMode }: Props) {
                 <title>Lista de pacientes</title>
             </Helmet>
 
-            <Box mt={2} sx={{
+            <Box sx={{
                 width: 'auto',
+                height: 150,
                 marginTop: 5,
                 padding: 0.9,
                 backgroundColor: '#e6e6e6',
-                borderRadius: 3
+                borderRadius: 3,
             }}>
-                <NewPatient setEditMode={setEditMode} setEditPatient={setEditPatient} />
+
+                <Box sx={{ display: 'flex' }}>
+                    <NewPatient setEditMode={setEditMode} setEditPatient={setEditPatient} />
+                </Box>
 
                 <Container>
                     <TableContainer component={Paper}>
-                        <Table sx={{ mWidth: 700 }}>
+                        <Table >
                             <TableHead sx={{
                                 background: '#f9f9f9',
                             }}>

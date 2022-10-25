@@ -23,7 +23,9 @@ export default function App() {
       sex: "",
       weight: 0,
       height: 0,
-      observation: ""
+      observation: "",
+      email: "",
+      tel: ""
     }
   );
 
