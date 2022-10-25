@@ -1,190 +1,57 @@
-.container {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-top: 15px
+.error-label {
+  color: #f55;
 }
 
-fieldset {
-    width: 600px;
-    height: auto;
-    border-radius: 5px;
-    text-align: initial;
+.sex {
+  display: flex;
+  height: 55px;
+  border: 1px solid #c6c6c6;
+  border-radius: 3px;
+  align-items: center;
+  justify-content: space-evenly;
 }
 
-input[type="text"],
-input[type="date"]{
-    width: 280px;
-    border-radius: 4px;
-    border: 1px solid var(--blur-main-color);
-    padding: 15px;
-    background-color: var(--main-color);
-    margin-left: 1pc;
-    transition: .25s;
+.sex label {
+  cursor: pointer;
+  padding: 10px;
+  align-items: center;
+  display: flex;
 }
 
-input[type="text"]:focus,
-input[type="date"]:focus{
-    box-shadow: 0 0 0 0.25rem rgb(50 168 82 / 50%);
-}
-
-input[type="date"] {
-    position: relative;
-}
-
-input[type="date"]::-webkit-calendar-picker-indicator {
-    color: transparent;
-    background: none;
-    z-index: 1;
-}
-
-label,
-legend {
-    color: #000;
-    margin-bottom: 5px;
-}
-
-::-webkit-calendar-picker-indicator {
-    cursor: pointer;
-}
-
-input[type="date"]:before {
-    padding: 5px;
-    display: block;
-    font-family: 'FontAwesome';
-    content: '\f073';
-    width: 30px;
-    height: 30px;
-    position: absolute;
-    right: 5px;
-    text-align: center;
-    display: grid;
-    align-items: center;
-}
-
-input[type="submit"] {
-    padding: 10px;
-    margin-top: 15px;
-    border: none;
-    border: 2px solid #000;
-    border-radius: 30px;
-    background-color: var(--main-color);
-    width: 100%;
-    cursor: pointer;
-    transition: .25s;
-    font-size: 1.1rem;
-    text-transform: uppercase;
-    font-family: 'Poppins', sans-serif;
-    font-weight: 700;
-}
-
-input[type="submit"]:hover {
-    background-color: var(--bg-color);
-    box-shadow: 0 0 0 0.25rem rgb(50 168 82 / 50%);
-}
-
-input[type="submit"]:active {
-    background-color: var(--blur-main-color);
-}
-
-input[type="button"] {
-    padding: 10px;
-    margin-top: 15px;
-    border: none;
-    border: 2px solid #000;
-    border-radius: 5px;
-    background-color: var(--main-color);
-    width: 100%;
-    cursor: pointer;
-    transition: .25s;
-    font-size: 1.1rem;
-    text-transform: uppercase;
-    font-family: 'Poppins', sans-serif;
-    font-weight: 700;
-}
-
-input[type="button"]:hover {
-    background-color: var(--bg-color);
-    box-shadow: 0 0 0 0.25rem rgba(131, 131, 131, 0.5);
-}
-
-input[type="button"]:active {
-    background-color: var(--blur-main-color);
-}
-
-
-.gender-options {
-    padding: 4.1px;
-    border-radius: 5px;
-    text-align: center;
-    border: 3px solid rgb(50 168 82 / 50%);
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    align-items: center;
-    margin-left: 1pc;
-}
-
-.gender-options>label {
-    cursor: pointer;
-    padding: 5px;
-    border-radius: 30px;
-    display: flex;
-    align-items: center;
-}
-
-.gender-options label:hover {
-    background-color: var(--main-color);
-}
-
-.gender-options label:active {
-    background-color: var(--blur-main-color);
+label:focus-within {
+  color: var(--green);
+  font-weight: bold;
 }
 
 input[type="radio"] {
-    appearance: none;
-    background-color: #fff;
-    margin: 0;
-    font: inherit;
-    color: currentColor;
-    width: 1.05em;
-    height: 1.08em;
-    border: 0.15em solid currentColor;
-    border-radius: 50%;
-    display: grid;
-    place-content: center;
-    margin-left: 1pc;
+  appearance: none;
+  background-color: #fff;
+  font: inherit;
+  color: currentColor;
+  width: 1.15em;
+  height: 1.15em;
+  border: 0.15em solid currentColor;
+  border-radius: 50%;
+  display: grid;
+  margin-top: 0;
+  place-content: center;
+  cursor: pointer;
 }
 
 input[type="radio"]::before {
-    content: "";
-    width: 0.65em;
-    height: 0.65em;
-    border-radius: 50%;
-    transform: scale(0);
-    transition: 120ms transform ease-in-out;
-    box-shadow: inset 1em 1em rgb(50 168 82);
+  content: "";
+  width: 0.6em;
+  height: 0.6em;
+  border-radius: 50%;
+  transform: scale(0);
+  transition: 120ms transform ease-in-out;
+  box-shadow: inset 1em 1em var(--green);
 }
 
 input[type="radio"]:checked::before {
   transform: scale(1);
 }
 
-.css-1s2u09g-control{
-    padding: 5px;
-    background-color: var(--main-color) !important;
-    margin-left: 8px;
-    width: 280px;
-}
-
-.css-1pahdxg-control{
-    padding: 5px;
-    margin-left: 8px;
-    width: 280px;
-}
-
-.error-label{
-    color: #f55;
+select:hover {
+  border-color: #000;
 }

@@ -13,7 +13,6 @@ type Props = {
 
 export default function DeleteBtn({patientId, deletePatient}:Props){
 
-       
     function handleClick(patientId: number){
         deletePatient(patientId)
     } 
